@@ -1,0 +1,101 @@
+/* __V3D_TEMPLATE__ - template-based file; delete this line to prevent this file from being updated */
+
+body {
+    margin: 0px;
+    overflow: hidden;
+}
+
+#v3d-container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.fullscreen-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    background-size: 100% 100%;
+    display: none;
+    z-index: 1;
+}
+
+.fullscreen-open {
+    background-image: url('media/fullscreen_open.svg');
+}
+
+.fullscreen-close {
+    background-image: url('media/fullscreen_close.svg');
+}
+
+.preloader-div {
+    position: fixed;
+    left: 0%;
+    top: 0%;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-position: center 0;
+    z-index: 99999;
+  }
+  
+  .preloader-bg {
+    position: absolute;
+    top: 30%;
+    left: 0%;
+    right: 0%;
+    width: 225px;
+    height: 180px;
+    margin-right: auto;
+    margin-left: auto;
+    background-image: url('./img/logo.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+    
+  .preloader-container {
+    position: absolute;
+    left: 0%;
+    top: auto;
+    right: 0%;
+    bottom: 20%;
+    width: 230px;
+    height: 5px;
+    /*padding: 0 5px;*/
+    margin-right: auto;
+    margin-left: auto;
+    /*border-radius: 12px;*/
+    /*background-color: #00DD44;*/
+    background-image: url('./img/loading.png');
+  }
+  
+  .preloader-container span {
+    margin-top: 20px;
+    font-family: Arial;
+    font-size: 16px;
+    color: #3F38DD;
+    text-align: center;
+    display:block;
+  }
+  
+  .preloader-bar {
+    margin-top: 1px;
+    width: 50%;
+    height: 5px;
+    border-radius: 2px;
+    /*background-color: hsla(208.00000000000003, 82.57%, 57.25%, 1.00);*/
+    background-color: #3F38DD;
+    box-shadow: 0 0 6px rgba(63, 56, 211, 0.4);
+  }
+
+/* removes tap blinking on ios devices */
+* { -webkit-tap-highlight-color:rgba(0,0,0,0); }

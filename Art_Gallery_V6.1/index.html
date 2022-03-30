@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Gallery</title>
+    <!-- import Vue before iView -->
+    <script src="./lib/vue.js"></script>
+    <!-- import stylesheet -->
+    <link rel="stylesheet" href="./lib/viewui/styles/iview.css">
+    <!-- import iView JavaScript -->
+    <script type="text/javascript" src="./lib/viewui/iview.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <iframe id="iframe" src="Art_Gallery.html"></iframe>
+    <div id="app">
+        <div class="modle-panle" v-if="show">
+            <i-button v-bind:type="isActive==1?'primary':'default'" @click="isActive=1;modelOrbit()">Orbit</i-button>
+            <i-button v-bind:type="isActive==2?'primary':'default'" @click="isActive=2;modelFirstPerson()">First-Person</i-button>
+            <i-button v-bind:type="isActive==3?'primary':'default'" @click="isActive=3;modelVr()">VR</i-button>
+            <i-button @click="chat()">Chat</i-button>
+        </div>
+        <div class="control-panle" v-if="visible">
+            <button class="control-btn" @mousedown="moveForward(true)" @mouseup="moveForward(false)" @touchstart="moveForward(true)" @touchend="moveForward(false)">
+                <Icon type="ios-arrow-dropup-circle" size="50" />
+            </button>
+            <button class="control-btn" @mousedown="moveBack(true)" @mouseup="moveBack(false)" @touchstart="moveBack(true)" @touchend="moveBack(false)">
+                <Icon type="ios-arrow-dropdown-circle" size="50" />
+            </button>
+            <button class="control-btn" @mousedown="moveLeft(true)" @mouseup="moveLeft(false)" @touchstart="moveLeft(true)" @touchend="moveLeft(false)">
+                <Icon type="ios-arrow-dropleft-circle" size="50" />
+            </button>
+            <button class="control-btn" @mousedown="moveRight(true)" @mouseup="moveRight(false)" @touchstart="moveRight(true)" @touchend="moveRight(false)">
+                <Icon type="ios-arrow-dropright-circle" size="50" />
+            </button>
+        </div>
+        <Alert type="warning" show-icon closable v-if="vr_not">
+            A warning prompt
+            <span slot="desc">Place your phone into the google Cardboard,instead you device does not support VR mode.</span>
+        </Alert>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                show: false,
+                isActive: 1,
+                visible: false,
+                modal1: false,
+                vr_not: false
+            },
+            methods: {
+                loaded: function () {
+                    console.log("Iframe Loading Complete");
+                    this.show = true;
+                },
+                modelOrbit: function () {
+                    console.log("Switch To Orbit Model!");
+                    this.visible = false;
+                    window.frames['iframe'].contentWindow.orbit();
+                },
+                modelFirstPerson: function () {
+                    console.log("Switch To FirstPerson Model!");
+                    this.visible = true;
+                    window.frames['iframe'].contentWindow.fp();
+                },
+                modelVr: function () {
+                    console.log("Switch To VR Model!");
+                    this.visible = false;
+                    window.frames['iframe'].contentWindow.vr();
+                },
+                chat: function() {
+                    // window.open("./chats_enhance-main/public/index.html", "_blank");
+                    window.open("https://vr-museum-chat.herokuapp.com", "_blank");
+                },
+                moveForward: function (params) {
+                    console.log("Move Forward!", params);
+                    window.frames['iframe'].contentWindow.forward(params);
+                },
+                moveBack: function (params) {
+                    console.log("Move Back!", params);
+                    window.frames['iframe'].contentWindow.back(params);
+                },
+                moveLeft: function (params) {
+                    console.log("Move Left!", params);
+                    window.frames['iframe'].contentWindow.left(params);
+                }, moveRight: function (params) {
+                    console.log("Move Right!", params);
+                    window.frames['iframe'].contentWindow.right(params);
+                },
+                description: function (descContent) {
+                    this.$Modal.info({
+                        title: 'Description:',
+                        content: descContent,
+                        okText: 'Quit',
+                    });
+                },
+                vr_available: function (vr_available) {
+                    this.vr_not = vr_available;
+                }
+            },
+            mount () {
+                window.vm = this
+            }
+        })
+    </script>
+</body>
+
+</html>
